@@ -21,7 +21,6 @@ return new class extends Migration
             $table->text('body');
             $table->decimal('price', 10, 2);
             $table->string('slug');
-            $table->foreignId('store_id')->constrained();
 
             $table->timestamps();
         });
