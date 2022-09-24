@@ -33,6 +33,8 @@ Route::middleware([
         return view('dashboard');
     })->middleware(['auth'])->name('dashboard');
 
+    Route::resource('products', \App\Http\Controllers\ProductController::class);
+
 
     require __DIR__.'/auth.php';
 });

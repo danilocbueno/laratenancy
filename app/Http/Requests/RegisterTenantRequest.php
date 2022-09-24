@@ -35,7 +35,7 @@ class RegisterTenantRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        //FIXME need to change this fixed value
-        $this->merge(['domain' => strtolower($this->domain . '.laratenancy.test')]);
+        $centralDomain = config('tenancy.central_domains')[0];
+        $this->merge(['domain' => strtolower($this->domain . '.' . $centralDomain)]);
     }
 }
