@@ -8,13 +8,13 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <a
-                href="{{ route('products.create') }}"
+                href="{{ route('admin.products.create') }}"
                 class="px-4 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                 Cadastrar produto
             </a>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 ">
-                    <div class="flex justify-between gap-2">
+                    <div class="grid md:grid-cols-4 gap-x-6 gap-y-10">
                     @forelse($products as $product)
                         <div class="flex justify-center">
                             <div class="rounded-lg shadow-lg bg-white max-w-sm">
