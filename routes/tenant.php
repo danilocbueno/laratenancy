@@ -35,6 +35,8 @@ Route::middleware([
 
     Route::resource('products', \App\Http\Controllers\ProductController::class);
 
+    Route::get('checkout', [\App\Http\Controllers\CheckoutController::class, 'index']);
+
 
     require __DIR__.'/auth.php';
 });
