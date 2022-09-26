@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 
 class Product extends Model
 {
+    use HasFactory;
 
     protected $fillable = ['name', 'description', 'body', 'price', 'slug'];
 
@@ -37,6 +38,4 @@ class Product extends Model
             }
         );
     }
-
-    use HasFactory;
 }

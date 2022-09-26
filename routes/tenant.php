@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Livewire\Tenants\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
@@ -49,6 +50,7 @@ Route::middleware([
 
         Route::prefix('admin')->name('admin.')->group(function() {
             Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
+            Route::get('category', Category::class);
         });
     });
 
