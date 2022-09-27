@@ -1,9 +1,16 @@
 <x-guest-layout>
-        <div class="text-center bg-gray-50 text-gray-800 py-10 px-6">
-            <h1 class="text-1xl md:text-2xl xl:text-3xl tracking-tight ">Bem vindo a</h1>
-            <h2 class="text-4xl md:text-5xl xl:text-6xl font-bold tracking-tight text-blue-600">{{ $store->name }}</h2>
+    <div class="px-6 py-12 md:px-12 bg-gray-100 text-gray-800 text-center lg:text-center">
+        <div class="container mx-auto xl:px-32">
+            <div class="">
+                <div class="mt-12 lg:mt-0">
+                    <h1 class="text-3xl md:text-4xl xl:text-5xl tracking-tight ">você está em a<span class="font-bold  text-blue-600"> {{ $store->name }}</span></h1>
+                    <p class="text-gray-600">
+                        {{ $store->description }}
+                    </p>
+                </div>
+            </div>
         </div>
-
+    </div>
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

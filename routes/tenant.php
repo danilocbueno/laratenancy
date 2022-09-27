@@ -46,17 +46,16 @@ Route::middleware([
         Route::get('cancel', [\App\Http\Controllers\CartController::class, 'cancel'])->name('cancel');
     });
 
-    Route::middleware('auth', 'access.control.store.admin')->group(function(){
+    Route::middleware('auth')->group(function(){
 
-        Route::prefix('admin')->name('admin.')->group(function() {
+        //Checkout controller
+        Route::get('checkout', [\App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
+
+        Route::middleware('access.control.store.admin')->prefix('admin')->name('admin.')->group(function() {
             Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
             Route::get('category', Category::class);
         });
     });
-
-
-    //Checkout controller
-    Route::get('checkout', [\App\Http\Controllers\CheckoutController::class, 'index']);
 
 
     require __DIR__.'/auth.php';

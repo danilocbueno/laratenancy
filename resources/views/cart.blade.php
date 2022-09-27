@@ -29,7 +29,7 @@
                     <a href="{{route('cart.cancel')}}"
                        class="text-xl font-bold px-4 py-2 rounded bg-red-600 text-white shadow hover:bg-red-300 transition ease-in-out delay-150 uppercase">Cancelar</a>
 
-                    <a href="#"
+                    <a href="{{ route('checkout') }}"
                        class="text-xl font-bold px-4 py-2 rounded bg-green-600 text-white shadow hover:bg-green-300 transition ease-in-out delay-150 uppercase">Concluir</a>
                 </div>
             @endif
