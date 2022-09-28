@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enum\UserRoleEnum;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -43,11 +44,16 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => UserRoleEnum::ROLE_CUSTOMER,
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
+
+        if($user->role == UserRoleEnum::ROLE_CUSTOMER) {
+            return redirect()->route('front.store');
+        }
 
         return redirect(RouteServiceProvider::HOME);
     }

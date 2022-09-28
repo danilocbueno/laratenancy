@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
-            $table->string('role')->default('ROLE_CUSTOMER');
+            $table->string('role')->default(\App\Enum\UserRoleEnum::ROLE_CUSTOMER->name);
 
             $table->rememberToken();
             $table->timestamps();

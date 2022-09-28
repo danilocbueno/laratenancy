@@ -53,7 +53,7 @@ Route::middleware([
 
         Route::middleware('access.control.store.admin')->prefix('admin')->name('admin.')->group(function() {
             Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
-            Route::get('category', Category::class);
+            Route::get('category', Category::class)->name('categories.index');
         });
     });
 

@@ -10,7 +10,9 @@ class RegisterTenantController extends Controller
 {
     public function index()
     {
-        //
+        $tenants = Tenant::all();
+        return view('tenant.index', compact('tenants'));
+
     }
 
     public function create()
@@ -21,7 +23,7 @@ class RegisterTenantController extends Controller
     public function store(RegisterTenantRequest $request)
     {
         //dd($request->validated());
-        $tenant = Tenant::create($request->validated());
+        $tenant = Tenant::create($request->all());
         $tenant->createDomain(['domain' => $request->domain]);
 
         return redirect(tenant_route($tenant->domains->first()->domain, 'login'));
