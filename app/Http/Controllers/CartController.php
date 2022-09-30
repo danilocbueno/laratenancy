@@ -33,7 +33,7 @@ class CartController extends Controller
     public function remove($productSlug)
     {
         $this->cartService->remove($productSlug);
-        return redirect()->route('front.store');
+        return redirect()->route('cart.index');
     }
 
     public function cancel()
