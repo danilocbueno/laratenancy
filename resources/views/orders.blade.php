@@ -13,12 +13,12 @@
                         aria-expanded="true"
                         aria-controls="collapse-{{ $key }}"
                     >
-                        Pedido #{{ $order->reference }}
+                        Pedido #{{ $order->reference }} ({{ $order->created_at->diffForHumans() }})
                     </button>
                 </h2>
                 <div
                     id="collapse-{{ $key }}"
-                    class="accordion-collapse collapse show"
+                    class="accordion-collapse collapse"
                     aria-labelledby="heading-{{ $key }}"
                     data-bs-parent="#order-{{ $key }}"
                 >
@@ -35,5 +35,10 @@
         @empty
             <p>Sem pedidos no momento</p>
         @endforelse
+
+        <div class="mt-4">
+            {{ $orders->links() }}
+        </div>
+
     </div>
 </x-guest-layout>

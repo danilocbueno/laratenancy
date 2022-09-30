@@ -31,10 +31,6 @@ Route::middleware([
         //return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
     });
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth'])->name('dashboard');
-
 
     Route::get('/', [\App\Http\Controllers\FrontController::class, 'index'])->name('front.store');
 
@@ -57,6 +53,10 @@ Route::middleware([
         Route::get('orders', [\App\Http\Controllers\OrderController::class, 'index'])->name('orders');
 
         Route::middleware('access.control.store.admin')->prefix('admin')->name('admin.')->group(function() {
+            Route::get('dashboard', function () {
+                return view('dashboard');
+            })->middleware(['auth'])->name('dashboard');
+
             Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
             Route::get('category', Category::class)->name('categories.index');
         });
