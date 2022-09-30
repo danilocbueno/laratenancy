@@ -59,6 +59,10 @@ class RegisteredUserController extends Controller
             return redirect()->route('front.store');
         }
 
+        if($user->role == UserRoleEnum::ROLE_OWNER) {
+            return redirect()->route('admin.dashboard');
+        }
+
         return redirect(RouteServiceProvider::HOME);
     }
 }

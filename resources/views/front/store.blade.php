@@ -19,8 +19,12 @@
                             @forelse($products as $product)
                                 <div class="flex justify-center">
                                     <div class="rounded-lg shadow-lg bg-white max-w-sm">
-                                        <a href="#!">
-                                            <img class="rounded-t-lg" src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" alt=""/>
+                                        <a href="{{ route('front.single', ['slug' => $product->slug]) }}">
+                                            @if($product->images->count())
+                                                <img src="{{ tenant_asset($product->images->first()->path) }}" class="rounded-t-lg h-50" alt="..." style="object-fit: cover">
+                                            @else
+                                                <img src="{{ asset('img/no-photo.png') }}" class="rounded-t-lg h-50" alt="..." style="object-fit: cover">
+                                            @endif
                                         </a>
                                         <div class="p-6">
                                             <h5 class="text-gray-900 text-xl font-medium mb-2">{{ $product->name }}</h5>

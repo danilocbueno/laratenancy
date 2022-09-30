@@ -32,7 +32,9 @@ Route::middleware([
     });
 
 
+    //FRONT STORE
     Route::get('/', [\App\Http\Controllers\FrontController::class, 'index'])->name('front.store');
+    Route::get('single/{slug}', [\App\Http\Controllers\FrontController::class, 'single'])->name('front.single');
 
     //CART
     Route::prefix('cart')->name('cart.')->group(function(){
