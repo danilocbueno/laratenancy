@@ -16,7 +16,10 @@
             </div>
         </div>
     </div>
-    // SDK MercadoPago.js V2
+
+    <div class="">
+        <a href="{{ route('process') }}">Pagar</a>
+    </div>
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <script>
         const mp = new MercadoPago('TEST-d6f245df-b00a-4158-9916-9ec9a708f213', {

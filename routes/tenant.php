@@ -50,6 +50,11 @@ Route::middleware([
 
         //Checkout controller
         Route::get('checkout', [\App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
+        Route::get('process', [\App\Http\Controllers\CheckoutController::class, 'process'])->name('process');
+        Route::get('thanks', [\App\Http\Controllers\CheckoutController::class, 'thanks'])->name('thanks');
+
+        //Order Controller
+        Route::get('orders', [\App\Http\Controllers\OrderController::class, 'index'])->name('orders');
 
         Route::middleware('access.control.store.admin')->prefix('admin')->name('admin.')->group(function() {
             Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);

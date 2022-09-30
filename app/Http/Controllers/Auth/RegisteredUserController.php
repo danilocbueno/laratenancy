@@ -51,6 +51,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        if($user->role == UserRoleEnum::ROLE_CUSTOMER && session()->has('cart')) {
+            return redirect()->route('checkout');
+        }
+
         if($user->role == UserRoleEnum::ROLE_CUSTOMER) {
             return redirect()->route('front.store');
         }
