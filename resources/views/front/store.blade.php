@@ -13,21 +13,21 @@
     </div>
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white overflow-hidden sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200 ">
                         <div class="grid md:grid-cols-4 gap-x-6 gap-y-10">
                             @forelse($products as $product)
                                 <div class="flex justify-center">
-                                    <div class="rounded-lg shadow-lg bg-white max-w-sm">
+                                    <div class="rounded-lg bg-white max-w-sm">
                                         <a href="{{ route('front.single', ['slug' => $product->slug]) }}">
                                             @if($product->images->count())
-                                                <img src="{{ tenant_asset($product->images->first()->path) }}" class="rounded-t-lg h-50" alt="..." style="object-fit: cover">
+                                                <img src="{{ tenant_asset($product->images->first()->path) }}" class="w-full hover:scale-110 transition duration-300 ease-in-out" alt="..." style="object-fit: cover; max-height: 200px;">
                                             @else
-                                                <img src="{{ asset('img/no-photo.png') }}" class="rounded-t-lg h-50" alt="..." style="object-fit: cover">
+                                                <img src="{{ asset('img/no-photo.png') }}" class="w-full hover:scale-110 transition duration-300 ease-in-out" alt="..." style="object-fit: cover; max-height: 200px;">
                                             @endif
                                         </a>
                                         <div class="p-6">
-                                            <h5 class="text-gray-900 text-xl font-medium mb-2">{{ $product->name }}</h5>
+                                            <h5 class="text-gray-900 text-xl font-medium">{{ $product->name }}</h5>
                                             <p class="text-gray-700 text-base mb-4">
                                                 {{ $product->description }}
                                             </p>
@@ -42,7 +42,6 @@
                                 <p>Ainda não temos produtos cadastrados</p>
                             @endforelse
                         </div>
-
                     </div>
                 </div>
             </div>

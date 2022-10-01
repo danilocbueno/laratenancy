@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enum\UserRoleEnum;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class AccessControlStoreAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role == 'ROLE_CUSTOMER'){
+        if(auth()->user()->role == UserRoleEnum::ROLE_OWNER){
             return redirect()->route('dashboard');
         }
         return $next($request);
