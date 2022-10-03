@@ -63,6 +63,8 @@ Route::middleware([
             Route::post('store', [\App\Http\Controllers\Admin\StoreController::class, 'store'])->name('store.store');
             Route::get('store/edit', [\App\Http\Controllers\Admin\StoreController::class, 'edit'])->name('store.edit');
 
+            Route::get('store/payments', [\App\Http\Controllers\Admin\StorePaymentsController::class, 'index'])->name('store.payments');
+
             Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
             Route::get('category', Category::class)->name('categories.index');
         });
