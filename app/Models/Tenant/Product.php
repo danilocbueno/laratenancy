@@ -29,19 +29,19 @@ class Product extends Model
         return number_format($this->price, 2, ',', '.');
     }
 
-    public function price(): Attribute
-    {
-        return  new Attribute(
-            get: function($value) {
-                $price = $value / 100;
-                return $price;
-            },
-            set: function ($value) {
-                $value = str_replace(['.', ','], ['', '.'], $value);
-                return $value * 100;
-            }
-        );
-    }
+//    public function price(): Attribute
+//    {
+//        return  new Attribute(
+//            get: function($value) {
+//                $price = $value / 100;
+//                return $price;
+//            },
+//            set: function ($value) {
+//                $value = str_replace(['.', ','], ['', '.'], $value);
+//                return $value * 100;
+//            }
+//        );
+//    }
 
     public function images() {
         return $this->hasMany(ProductImage::class);

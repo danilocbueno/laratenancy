@@ -47,4 +47,7 @@
             </div>
         </div>
     </div>
+    <div class="container mx-auto xl:px-32">
+        {{ $products->links() }}
+    </div>
 </x-guest-layout>
