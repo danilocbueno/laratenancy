@@ -1,6 +1,6 @@
 <x-guest-layout>
     <!--SHOPPING CART-->
-    @php $total = 0; @endphp
+    @php $total = 0; $cartItens = 0; @endphp
 
     @if($cart)
     <div class="container mx-auto mt-10">
@@ -19,7 +19,11 @@
                 <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
                     <div class="flex w-2/5"> <!-- product -->
                         <div class="w-20">
-                            <img class="h-24" src="https://drive.google.com/uc?id=18KkAVkGFvaGNqPy2DIvTqmUH_nk39o3z" alt="">
+                            @if($item['image'])
+                                <img src="{{ tenant_asset($item['image']) }}" class="w-full hover:scale-110 transition duration-300 ease-in-out" alt="..." style="object-fit: cover; max-height: 200px;">
+                            @else
+                                <img src="{{ asset('img/no-photo.png') }}" class="w-full hover:scale-110 transition duration-300 ease-in-out" alt="..." style="object-fit: cover; max-height: 200px;">
+                            @endif
                         </div>
                         <div class="flex flex-col justify-between ml-4 flex-grow">
                             <span class="font-bold text-sm">{{$item['name']}}</span>
@@ -33,7 +37,10 @@
                     <span class="text-center w-1/5 font-semibold text-sm">R$ {{number_format((float) ($item['price']), 2, ',', '.')}}</span>
                     <span class="text-center w-1/5 font-semibold text-sm">R$ {{number_format((float) ($item['price']), 2, ',', '.')}}</span>
                 </div>
-                @php $total += (float) $item['price'] @endphp
+                @php
+                    $total += (float) $item['price'];
+                    $cartItens = $cartItens + 1;
+                @endphp
                 @empty
                     Sem produtos no carrinho
                 @endforelse
@@ -43,7 +50,7 @@
                 <h1 class="font-semibold text-2xl border-b pb-8">Resumo</h1>
                 <div class="flex justify-between mt-10 mb-5">
                     <span class="font-semibold text-sm uppercase">Items</span>
-                    <span class="font-semibold text-sm">590</span>
+                    <span class="font-semibold text-sm">{{ $cartItens }}</span>
                 </div>
                 <div class="border-t mt-8">
                     <div class="flex font-semibold justify-between py-6 text-sm uppercase">

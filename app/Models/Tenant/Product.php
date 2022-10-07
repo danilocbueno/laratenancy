@@ -25,12 +25,16 @@ class Product extends Model
         return $matchs;
     }
 
+    public function getFormatedPrice() {
+        return number_format($this->price, 2, ',', '.');
+    }
+
     public function price(): Attribute
     {
         return  new Attribute(
             get: function($value) {
                 $price = $value / 100;
-                return number_format($price, 2, ',', '.');
+                return $price;
             },
             set: function ($value) {
                 $value = str_replace(['.', ','], ['', '.'], $value);

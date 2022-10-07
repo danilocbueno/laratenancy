@@ -15,12 +15,15 @@ class CartController extends Controller
     public function index()
     {
         $cart = $this->cartService->all();
+
         return view('cart', compact('cart'));
     }
 
     public function add($productSlug)
     {
         $product = Product::whereSlug($productSlug)->first();
+        $product['image'] = $product->images->first()?->path; //FIXME check the images attr
+
         if($product == null)  {
             return redirect()->route('front.store'); //FIXME TO 404
         }
