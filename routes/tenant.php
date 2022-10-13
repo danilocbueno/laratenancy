@@ -44,12 +44,18 @@ Route::middleware([
         Route::get('cancel', [\App\Http\Controllers\CartController::class, 'cancel'])->name('cancel');
     });
 
+    //WEBHOOK
+    Route::post('hook', [\App\Http\Controllers\CheckoutController::class, 'hook'])->name('hook');
+    Route::get('feedback', [\App\Http\Controllers\CheckoutController::class, 'feedback'])->name('feedback');
+
     Route::middleware('auth')->group(function(){
 
         //Checkout controller
-        Route::get('checkout', [\App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
-        Route::get('process', [\App\Http\Controllers\CheckoutController::class, 'process'])->name('process');
-        Route::get('thanks', [\App\Http\Controllers\CheckoutController::class, 'thanks'])->name('thanks');
+        Route::prefix('checkout')->name('checkout.')->group(function() {
+            Route::get('/', [\App\Http\Controllers\CheckoutController::class, 'index'])->name('index');
+            Route::get('process', [\App\Http\Controllers\CheckoutController::class, 'process'])->name('process');
+            Route::get('thanks', [\App\Http\Controllers\CheckoutController::class, 'thanks'])->name('thanks');
+        });
 
         //Order Controller
         Route::get('orders', [\App\Http\Controllers\OrderController::class, 'index'])->name('orders');

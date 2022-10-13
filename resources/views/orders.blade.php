@@ -24,7 +24,7 @@
                 >
                     <div class="accordion-body py-4 px-5">
                         <ul>
-                            @foreach($order->items as $item)
+                            @foreach($order->items['cartItems'] as $item)
                                 <li class="text-sm text-gray-400 mb-2">{{ $item['name']}} (R$ {{$item['price'] }})</li>
                             @endforeach
                         </ul>

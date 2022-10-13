@@ -34,8 +34,12 @@
                     <div class="flex justify-center w-1/5">
                         <span class="text-sm">1</span>
                     </div>
-                    <span class="text-center w-1/5 font-semibold text-sm">R$ {{number_format((float) ($item['price']), 2, ',', '.')}}</span>
-                    <span class="text-center w-1/5 font-semibold text-sm">R$ {{number_format((float) ($item['price']), 2, ',', '.')}}</span>
+                    <span class="text-center w-1/5 font-semibold text-sm">
+                        <x-money :amount="$item['price']"/>
+                    </span>
+                    <span class="text-center w-1/5 font-semibold text-sm">
+                        <x-money :amount="$item['price']"/>
+                    </span>
                 </div>
                 @php
                     $total += (float) $item['price'];
@@ -55,9 +59,9 @@
                 <div class="border-t mt-8">
                     <div class="flex font-semibold justify-between py-6 text-sm uppercase">
                         <span>Total</span>
-                        <span>R$ {{number_format((float) ($total), 2, ',', '.')}}</span>
+                        <x-money :amount="$total"/>
                     </div>
-                    <a href="{{ route('checkout') }}" class="inline-block mt-10 bg-blue-500 font-semibold hover:bg-blue-600 py-3 text-sm text-white uppercase text-center w-full">Fazer pedido</a>
+                    <a href="{{ route('checkout.index') }}" class="inline-block mt-10 bg-blue-500 font-semibold hover:bg-blue-600 py-3 text-sm text-white uppercase text-center w-full">Fazer pedido</a>
                     <a href="{{ route('front.store') }}" class="flex justify-center font-semibold text-blue-600 text-sm mt-6">
                         <svg class="fill-current mr-2 text-blue-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
                         Continue comprando

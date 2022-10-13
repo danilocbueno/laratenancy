@@ -4,67 +4,59 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Tenant\Product;
+use App\Models\User;
+use App\Services\MercadoPagoService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use MercadoPago;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
+
+    public function __construct(MercadoPagoService $mercadoPagoService)
+    {
+        $this->mercadoPagoService = $mercadoPagoService;
+    }
+
     public function index() {
 
-        if(!auth()->check()) {
+        if(!auth()->check() || !session()->has('cart')) {
             return redirect()->route('login');
         }
 
-        MercadoPago\SDK::setAccessToken("TEST-4396009488109012-092409-069b41d4fcd94c7d384c4989841789c4-56728636"); // Either Production or SandBox AccessToken
+        $cartItems = session()->get('cart');
+        $preference = $this->mercadoPagoService->createPreference($cartItems);
 
-        $preference = new MercadoPago\Preference();
-
-        $item = new MercadoPago\Item();
-        $item->title = 'produto teste';
-        $item->quantity = '2';
-        $item->unit_price = '10';
-
-        $preference->items = array($item);
-
-        $preference->back_urls = array(
-            "success" => "http://localhost:8080/feedback",
-            "failure" => "http://localhost:8080/feedback",
-            "pending" => "http://localhost:8080/feedback"
-        );
-        $preference->auto_return = "approved";
-
-        $preference->save();
-
-        $response = array(
-            'id' => $preference->id,
-        );
-        return view('checkout')->with('preference', $response);
+        return view('checkout.index')->with('preference', $preference);
     }
 
-    public function process(Request $request) {
-        $dataPost = $request->all();
+    private function createOrder($mercadoPagoPreferenceResponse) {
         $cartItems = session()->get('cart');
         $reference = Str::uuid();
 
-        DB::transaction(function () use ($cartItems, $reference) {
+        DB::transaction(function () use ($cartItems, $reference, $mercadoPagoPreferenceResponse) {
             //check if has products in stock and decrement
             foreach ($cartItems as $item) {
                 $this->decrementProductInStock($item['id']);
             }
 
+            $items = [
+                "mercadoPagoPreference" => $mercadoPagoPreferenceResponse,
+                "cartItems" => $cartItems
+            ];
+
             //create order
             auth()->user()->orders()->create([
                 'reference' => $reference,
-                'items' => $cartItems
+                'items' => $items
             ]);
+
             //clear cart
             session()->forget('cart');
 
         });
 
-        return redirect()->route('thanks');
+        return redirect()->route('checkout.thanks');
     }
 
     private function decrementProductInStock($id) {
@@ -74,6 +66,33 @@ class CheckoutController extends Controller
     }
 
     public function thanks() {
-        return view('thanks');
+        return view('checkout.thanks');
+    }
+
+    public function feedback(Request $request) {
+
+        if(!$request->has('status')) {
+            return redirect()->route('checkout.index'); //SOMETHING is WRONG
+        }
+
+        $status = $request->query('status');
+
+        if($status == "approved" || $status == "in_process") {
+            $mercadoPagoPreferenceResponse = $request->query();
+            $this->createOrder($mercadoPagoPreferenceResponse);
+            return view('checkout.thanks');
+        } else {
+            return redirect()->withFail('Ops, tivemos problemas ao realizar seu pedido!')->route('checkout.index');
+        }
+    }
+
+    public function hook(Request $request) {
+        $user = User::all()->first();
+        $user->orders()->create([
+            'reference' => Str::uuid(),
+            'items' => $request->json()->all()
+        ]);
+
+        response()->json([], 204);
     }
 }

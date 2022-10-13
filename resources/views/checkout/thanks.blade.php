@@ -7,11 +7,11 @@
                     <path stroke-linecap="round" stroke-linejoin="round"
                           d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                <h1 class="text-4xl font-bold">Obrigado !</h1>
+                <h1 class="text-4xl font-bold">Obrigado!</h1>
                 <p>Seu pedido foi realizado com sucesso. Verifique seu e-mail com as informações do pedido! </p>
                 <a href="{{ route('front.store') }}"
                    class="flex justify-center font-semibold text-blue-600 text-sm mt-6">
-                    Continue comprando
+                    Clique aqui e acompanhe seu pedido
                 </a>
             </div>
         </div>
