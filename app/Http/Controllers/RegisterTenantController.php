@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\UserRoleEnum;
 use App\Http\Requests\RegisterTenantRequest;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class RegisterTenantController extends Controller
 
     public function edit($id)
     {
-        //
+        $user = auth()->user();
     }
 
     public function update(Request $request, $id)

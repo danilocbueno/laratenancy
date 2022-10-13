@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Enum\UserRoleEnum;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('isOwner', fn($user) => $user->role == UserRoleEnum::ROLE_OWNER);
+        Gate::define('isAdmin', fn($user) => $user->role == UserRoleEnum::ROLE_ADMIN);
     }
 }

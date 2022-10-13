@@ -5,10 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Tenant\Product;
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    use UploadTrait;
+
+    private Product $product;
+
+    public function __construct(Product $product)
+    {
+        $this->product = $product;
+    }
+
     public function index()
     {
         $products = Product::paginate(10);
@@ -22,7 +32,14 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
+
         $product = Product::create($request->validated());
+
+        if($request->hasFile('images')) {
+            $images = $this->imageUpload($request->file('images'), 'path');
+            $product->images()->createMany($images);
+        }
+
         session()->flash('success', 'Produto inserido com sucesso!');
         return redirect()->route('admin.products.index');
     }
@@ -44,6 +61,9 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->route('admin.products.index');
+
     }
 }

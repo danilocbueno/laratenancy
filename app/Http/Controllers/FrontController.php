@@ -13,4 +13,9 @@ class FrontController extends Controller
         $store = tenant();
         return view('front.store', compact('products', 'store'));
     }
+
+    public function single($slug) {
+        $product = Product::whereSlug($slug)->first();
+        return view('front.single', compact('product'));
+    }
 }
