@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
         "mercadopago/dx-php": "2.5.0",
+        "realrashid/sweet-alert": "^5.1",
         "stancl/tenancy": "^3.5"
     },
     "require-dev": {

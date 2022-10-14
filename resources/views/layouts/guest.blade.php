@@ -177,7 +177,7 @@
         </div>
     </nav>
 
-    <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+    @include('sweetalert::alert')
 
     {{ $slot }}
 

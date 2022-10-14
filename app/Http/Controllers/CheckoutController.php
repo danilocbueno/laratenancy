@@ -9,6 +9,8 @@ use App\Services\MercadoPagoService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use PHPUnit\Exception;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CheckoutController extends Controller
 {
@@ -25,7 +27,11 @@ class CheckoutController extends Controller
         }
 
         $cartItems = session()->get('cart');
-        $preference = $this->mercadoPagoService->createPreference($cartItems);
+        try {
+            $preference = $this->mercadoPagoService->createPreference($cartItems);
+        } catch (Exception $e) {
+            return redirect()->route('checkout.index');
+        }
 
         return view('checkout.index')->with('preference', $preference);
     }
@@ -82,7 +88,8 @@ class CheckoutController extends Controller
             $this->createOrder($mercadoPagoPreferenceResponse);
             return view('checkout.thanks');
         } else {
-            return redirect()->withFail('Ops, tivemos problemas ao realizar seu pedido!')->route('checkout.index');
+            Alert::error('Ops...', 'Infelizmente tivemos problemas ao realizar seu pedido!');
+            return redirect()->route('checkout.index');
         }
     }
 
