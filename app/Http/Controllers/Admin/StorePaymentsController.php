@@ -19,6 +19,7 @@ class StorePaymentsController extends Controller
     public function index()
     {
         $payments = $this->mercadoPagoService->getPayments();
+        dd($payments);
 
         return view('tenant.admin.store.payments', compact('payments'));
     }
