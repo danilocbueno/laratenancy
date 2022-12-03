@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use MercadoPago;
 
 class MercadoPagoService
@@ -15,6 +16,7 @@ class MercadoPagoService
     }
 
     public function createPreference($cartItens) : MercadoPago\Preference {
+        $reference = Str::uuid();
         MercadoPago\SDK::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
 
         $preference = new MercadoPago\Preference();
@@ -30,6 +32,16 @@ class MercadoPagoService
         }
 
         $preference->items = $mercadoPagoItems;
+
+        $preference->external_reference = $reference;
+        $preference->statement_descriptor = "LARALOGGI";
+
+        $preference->payment_methods = array(
+            "excluded_payment_types" => array(
+                array("id" => "credit_card")
+            ),
+            "installments" => 12
+        );
 
         $backUrlDomain = tenant()->domain . '/feedback';
 
