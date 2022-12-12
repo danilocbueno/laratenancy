@@ -27,10 +27,10 @@
                         <div class="col">
                             <!-- Page pre-title -->
                             <div class="page-pretitle">
-                                store1.laratenancy.com
+                                {{ tenant()->domain }}
                             </div>
                             <h2 class="page-title">
-                                Loja
+                                {{ tenant()->name }}
                             </h2>
                         </div>
                         <!-- Page title actions -->

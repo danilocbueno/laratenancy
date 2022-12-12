@@ -51,7 +51,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Mail::to($user->email)->send(new UserRegisteredEmail($user)); //FIXME change to event listener
+        //Mail::to($user->email)->send(new UserRegisteredEmail($user)); //FIXME change to event listener
 
         Auth::login($user);
 

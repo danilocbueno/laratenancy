@@ -21,6 +21,16 @@
         </h1>
         <div class="navbar-nav flex-row order-md-last">
             <div class="d-none d-md-flex">
+                <a href="{{ route('cart.index') }}" class="nav-link px-0 hide-theme-dark" data-bs-toggle="tooltip"
+                    data-bs-placement="bottom" aria-label="Cart" data-bs-original-title="Cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <circle cx="6" cy="19" r="2"></circle>
+                        <circle cx="17" cy="19" r="2"></circle>
+                        <path d="M17 17h-11v-14h-2"></path>
+                        <path d="M6 5l14 1l-1 7h-13"></path>
+                     </svg>
+                </a>
                 <a href="?theme=dark" class="nav-link px-0 hide-theme-dark" data-bs-toggle="tooltip"
                     data-bs-placement="bottom" aria-label="Enable dark mode" data-bs-original-title="Enable dark mode">
                     <!-- Download SVG icon from http://tabler-icons.io/i/moon -->
@@ -45,6 +55,7 @@
                         </path>
                     </svg>
                 </a>
+                <!--DARKMODE-->
                 <div class="nav-item dropdown d-none d-md-flex me-3">
                     <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1"
                         aria-label="Show notifications">
@@ -60,6 +71,7 @@
                         </svg>
                         <span class="badge bg-red"></span>
                     </a>
+                    <!--NOTIFICATION-->
                     <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
                         <div class="card">
                             <div class="card-header">
@@ -173,24 +185,41 @@
                     </div>
                 </div>
             </div>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
-                    aria-label="Open user menu" aria-expanded="false">
-                    <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
-                    <div class="d-none d-xl-block ps-2">
-                        <div>Paweł Kuna</div>
-                        <div class="mt-1 small text-muted">UI Designer</div>
+            @auth
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
+                        aria-label="Open user menu" aria-expanded="false">
+                        <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
+                        <div class="d-none d-xl-block ps-2">
+                            <div>{{ Auth::user()->name }}</div>
+                            <div class="mt-1 small text-muted">{{ Auth::user()->email }}</div>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <a href="#" class="dropdown-item">Status</a>
+                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="#" class="dropdown-item">Feedback</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="./settings.html" class="dropdown-item">Settings</a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"
+                                class="dropdown-item">Logout</a>
+                        </form>
                     </div>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <a href="#" class="dropdown-item">Status</a>
-                    <a href="#" class="dropdown-item">Profile</a>
-                    <a href="#" class="dropdown-item">Feedback</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="./settings.html" class="dropdown-item">Settings</a>
-                    <a href="./sign-in.html" class="dropdown-item">Logout</a>
                 </div>
-            </div>
+            @else
+                <div class="nav-item">
+                    <a href="{{ route('register') }}" class="nav-link" rel="noreferrer">
+                        Registre-se
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="{{ route('login') }}" class="btn btn-outline-light" rel="noreferrer">
+                        Entre
+                    </a>
+                </div>
+            @endauth
         </div>
         <div class="collapse navbar-collapse" id="navbar-menu">
             <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
