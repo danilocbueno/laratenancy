@@ -1,10 +1,11 @@
 <x-guest-layout>
-
-
     <div class="row row-cards d-flex align-items-stretch"">
+        <div class="col-12">
+            <h1>Produtos</h1>
+        </div>
         @forelse($products as $product)
             <div class="col-md-6 col-lg-3">
-                <a href="{{ route('cart.add', ['productSlug' => $product->slug]) }}"
+                <a href="{{ route('front.single', ['slug' => $product->slug]) }}"
                     class="card card-link text-center card-link-pop">
                     <div class="pt-2">
                         @if ($product->images->count())

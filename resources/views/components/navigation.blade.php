@@ -1,4 +1,4 @@
-<header class="navbar navbar-expand-md navbar-dark navbar-overlap d-print-none">
+<header class="navbar navbar-expand-md navbar-dark d-print-none">
     <div class="container-xl">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu"
             aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,13 +23,15 @@
             <div class="d-none d-md-flex">
                 <a href="{{ route('cart.index') }}" class="nav-link px-0 hide-theme-dark" data-bs-toggle="tooltip"
                     data-bs-placement="bottom" aria-label="Cart" data-bs-original-title="Cart">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <circle cx="6" cy="19" r="2"></circle>
                         <circle cx="17" cy="19" r="2"></circle>
                         <path d="M17 17h-11v-14h-2"></path>
                         <path d="M6 5l14 1l-1 7h-13"></path>
-                     </svg>
+                    </svg>
                 </a>
                 <a href="?theme=dark" class="nav-link px-0 hide-theme-dark" data-bs-toggle="tooltip"
                     data-bs-placement="bottom" aria-label="Enable dark mode" data-bs-original-title="Enable dark mode">
@@ -196,7 +198,7 @@
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                        <a href="#" class="dropdown-item">Status</a>
+                        <a href="{{ route('orders') }}" class="dropdown-item">Compras</a>
                         <a href="#" class="dropdown-item">Profile</a>
                         <a href="#" class="dropdown-item">Feedback</a>
                         <div class="dropdown-divider"></div>
@@ -224,26 +226,10 @@
         <div class="collapse navbar-collapse" id="navbar-menu">
             <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="./">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                <!-- Download SVG icon from http://tabler-icons.io/i/home -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <polyline points="5 12 3 12 12 3 21 12 19 12"></polyline>
-                                    <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
-                                    <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
-                                </svg>
-                            </span>
-                            <span class="nav-link-title">
-                                Home
-                            </span>
-                        </a>
+                    <li class="nav-item text-white">
+                        <strong>{{ tenant()->name}}</strong>
+                        {{ tenant()->domain }}
                     </li>
-
-
                 </ul>
             </div>
         </div>
